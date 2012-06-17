@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>RESTful webservice voor een restaurant</title>
+		
+		<meta charset="utf-8">
+		<title>API-mashup</title>
+
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		
+		<style>body { padding-top: 60px;}</style>
+				
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		
+		<script>
+			$(document).ready(function() {
+				console.log("Alle menu's");
+				$.getJSON('api/v1/menus.json', function(menus){
+					console.log(menus);
+				});
+				
+				console.log("Alle gerechten van een menu");
+				$.getJSON('api/v1/menus/1/dishes.json', function(dishes){
+					console.log(dishes);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="#">Eindopdracht webservice</a>
+				</div>
+			</div>
+		</div>
+		<div class="container">	
+			<section class="row">
+				<div class="span12">
+					<div class="well">
+					<h1>RESTful webservice voor een restaurant</h1>
+					<p>Deze webservice geeft de mogelijkheid om informatie op te vragen over de kaart van een restaurant. Klanten kunnen bijvoorbeeld de menukaart opvragen met de gangen en bijhorende gerechten die erop staan. Een chefkok kan zijn gerechten beheren en recepten opvragen van een gerecht.</p>
+					</div>
+				</div>
+			</section>
+			<section class="row">
+				<div class="span6">
+					<h2>Documentatie</h2>
+	
+					<p>De representatie van de data door middel van een GET-request is in JSON-formaat en XML.</p>
+					
+					<h4>Geef alle menu's</h4>
+					<pre>GET api/v1/menus.json</pre>
+					<pre>GET api/v1/menus.xml</pre>
+					
+					<h4>Maak een nieuw menu</h4>
+					<pre>POST api/v1/menus</pre>
+
+					<h4>Geef alle gerechten van een menu</h4>
+					<pre>GET api/v1/menus/{:id}/dishes.json</pre>
+					<pre>GET api/v1/menus/{:id}/dishes.xml</pre>
+
+					<h4>Geef de gerechten van een menu per gang</h4>
+					<pre>GET api/v1/menus/{:course}.json</pre>
+					<pre>GET api/v1/menus/{:course}.xml</pre>
+					
+					<h4>Geef alle gerechten</h4>
+					<pre>GET api/v1/dishes.json</pre>
+					<pre>GET api/v1/dishes.xml</pre>
+					
+					<h4>Geef alle gerechten op categorie (bijvoorbeeld soep, gebak, salade enz.)</h4>
+					<pre>GET api/v1/dishes.json?q={:category}</pre>
+					<pre>GET api/v1/dishes.xml?q{:category}</pre>
+				</div>
+				<div class="span6">
+					<h2>Structuur</h2>
+					<p>De webservice bevat de volgende entiteiten:</p>
+					<ul>
+						<li>Menu's</li>
+						<li>Gangen</li>
+						<li>Categori&euml;n</li>
+						<li>Gerechten</li>
+						<li>Later ook Recepten</li>
+					</ul>
+	
+					<blockquote>Een menu heeft gangen. Een gang bestaat uit een of meerdere gerechten. Gerechten horen bij verschillende categori&euml;n (bijvoorbeeld soepen, pasta, vegetarisch of salade). Een gerecht heeft ook een recept. [Alleen in te zien met API-key voor een kok??]</blockquote>
+	
+				</div>
+			</section>
+			<hr />
+			<footer class="footer"><p>Eindopdracht webservice</p></footer>
+		</div>
+	</body>
+</html>
