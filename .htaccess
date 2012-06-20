@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteRule ^api/v1/menus/([0-9])/dishes.(json|xml)$	dishes.php?menuid=$1&format=$2
+RewriteRule ^api/v1/menus.(json|xml)$					menus.php?format=$1
