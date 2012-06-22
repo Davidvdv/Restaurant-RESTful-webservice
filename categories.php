@@ -18,37 +18,31 @@
 
 			
 		case 'GET':
-			// Get all menu ordered by name
-			$result = $mysqli->query("SELECT * FROM menus ORDER BY name");
+			$result = $mysqli->query("SELECT * FROM categories ORDER BY category");
 
 			while($menu = $result->fetch_assoc()) {
-				$tmpArray[] = array(
+				$categories['categories'] = array(
 					'id' 		=> $menu['id'], 
-					'name' 		=> $menu['name'], 
-					'description' 	=> $menu['description']
+					'category'	=> $menu['category']
 				);
 			}
-			
-			$resultsArray = $tmpArray;
-											
+														
 			// Check for data type in the URI.
 			switch($_GET['format']) {
 				case 'json':
 					header('Content-Type: text/json');
-					
-					$json['menus'] = $resultsArray;
-					
-					echo json_encode($json);
+										
+					echo json_encode($categories);
 				break;
 				case 'xml':
 					header('Content-Type: text/xml');
 					
-					$xml = new SimpleXMLElement('<menus/>');
-					foreach($resultsArray as $menu) {
-						$xmlMenu = $xml->addChild('menu');
-						$xmlMenu->addAttribute('id', $menu['id']);
-						$xmlMenu->addChild('name', $menu['name']);
-						$xmlMenu->addChild('description', $menu['description']);
+					$xml = new SimpleXMLElement('<categories/>');
+
+					foreach($categories['categories'] as $cat) {
+						$xmlDish = $xml->addChild('category');
+						$xmlDish->addAttribute('id', $cat['id']);
+						$xmlDish->addChild('category', $cat['category']);
 					}
 					
 					echo $xml->asXML();

@@ -1,4 +1,23 @@
 RewriteEngine On
 
+### GET ###
+
+# Get dishes of a menu
 RewriteRule ^api/v1/menus/([0-9])/dishes.(json|xml)$	dishes.php?menuid=$1&format=$2
+
+
+
+# Get all dishes
+#RewriteRule ^api/v1/dishes.(json|xml)$					dishes.php?format=$1
+
+# Get all dishes by category (QSA copies a part of a string and append it to the URI)
+RewriteRule ^api/v1/dishes.(json|xml)$			dishes.php?format=$1 [QSA]
+
+# Get all menus
 RewriteRule ^api/v1/menus.(json|xml)$					menus.php?format=$1
+
+### POST ###
+
+# Add a menu
+RewriteRule ^api/v1/menus/$								menus.php
+RewriteRule ^api/v1/menus$								menus.php
