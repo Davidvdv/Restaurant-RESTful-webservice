@@ -13,9 +13,26 @@
 			break;
 			case 'OPTIONS':
 				// Sends the HTTP-request methods back which are allowed.
-				header('Allow: GET, HEAD, OPTIONS, PUT');
+				header('Allow: GET, PUT, HEAD, OPTIONS');
 			break;
+			
 			case 'PUT':
+				
+				parse_str(file_get_contents("php://input"), $putData);
+
+				// To-do
+				// id, name, price, course, category
+				$id = $mysqli->real_escape_string($id);
+				$name = $mysqli->real_escape_string($name);
+				$price = $mysqli->real_escape_string($price);
+
+				if($mysqli->query("UPDATE menus SET name = '".$name."', price = '".$price."' WHERE id = '".$id."'")) {
+					header('http/1.1 204 No Content');
+				} else {
+					header('http/1.1 500 Internal Server Error');	
+				}
+				
+			break;
 				
 			case 'GET':
 			

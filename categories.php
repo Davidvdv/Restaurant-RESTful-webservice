@@ -12,16 +12,14 @@
 		break;
 		case 'OPTIONS':
 			// Sends the HTTP-request methods back which are allowed.
-			header('Allow: GET, POST, HEAD, OPTIONS, PUT');
+			header('Allow: GET, HEAD, OPTIONS');
 		break;
-		case 'PUT':
 
-			
 		case 'GET':
 			$result = $mysqli->query("SELECT * FROM categories ORDER BY category");
 
 			while($menu = $result->fetch_assoc()) {
-				$categories['categories'] = array(
+				$categories['categories'][] = array(
 					'id' 		=> $menu['id'], 
 					'category'	=> $menu['category']
 				);
@@ -31,7 +29,7 @@
 			switch($_GET['format']) {
 				case 'json':
 					header('Content-Type: text/json');
-										
+					
 					echo json_encode($categories);
 				break;
 				case 'xml':
@@ -47,20 +45,11 @@
 					
 					echo $xml->asXML();
 				break;
+				default:
+					header('http/1.1 405 Method Not Allowed');
+				break;
 			}
 			
-		break;
-		
-		case 'POST':
-		
-			$postName = $mysqli->real_escape_string($_POST['name']);
-			$postDescription = $mysqli->real_escape_string($_POST['description']);
-		
-			if($mysqli->query("INSERT INTO menus (name, description) VALUES ('".$postName."', '".$postDescription."')")) {
-				header('http/1.0 204 '); // succeed
-			} else {
-				header('http/1.0 500 Internal Server Error'); // Failed
-			}
 		break;
 		
 		$mysqli->close();
