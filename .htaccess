@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Delete or put a dish to a menu
+RewriteRule ^api/v1/dishes/([0-9]+)$					dishes.php?id=$2
+
 # Get dishes of a menu
 RewriteRule ^api/v1/menus/([0-9]+)/dishes.(json|xml)$	dishes.php?menuid=$1&format=$2
 
@@ -13,8 +16,8 @@ RewriteRule ^api/v1/dishes.(json|xml)$					dishes.php?format=$1 [QSA]
 RewriteRule ^api/v1/menus.(json|xml)$					menus.php?format=$1
 
 # Delete or put a menu
-RewriteRule ^api/v1/menus/([0-9]+)/$					menus.php
-RewriteRule ^api/v1/menus/([0-9]+)$						menus.php
+RewriteRule ^api/v1/menus/([0-9]+)/$					menus.php?id=$1
+RewriteRule ^api/v1/menus/([0-9]+)$						menus.php?id=$1
 
 # Get all categories
 RewriteRule ^api/v1/categories.(json|xml)$				categories.php?format=$1

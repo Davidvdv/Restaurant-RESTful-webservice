@@ -9,6 +9,7 @@
 	switch($requestMethod) {
 		case 'HEAD':
 			// Sends headers back to client.
+			header("Cache-Control: no-cache, must-revalidate");
 		break;
 		case 'OPTIONS':
 			// Sends the HTTP-request methods back which are allowed.
@@ -25,21 +26,15 @@
 				$putData .= $data;
 			}		
 			fclose($putSocket);
-			
-			$putXML = new SimpleXMLElement($putData);
-
-			$id = $putXML[0]->attributes()->id;
-			$name = $putXML->name;
-			$description = $putXML->description;
 			*/
 			
-			parse_str(file_get_contents("php://input"), $putData);
-			
-			$id = $mysqli->real_escape_string($putData['id']);
-			$name = $mysqli->real_escape_string($putData['name']);
-			$description = $mysqli->real_escape_string($putData['description']);
-			
-			if($mysqli->query("UPDATE menus SET name = '".$name."', description = '".$description."' WHERE id = '".$id."'")) {
+			$putData = file_get_contents("php://input");
+			$putXML = new SimpleXMLElement($putData);
+
+			$name = $mysqli->real_escape_string($putXML->name);
+			$description = $mysqli->real_escape_string($putXML->description);
+
+			if($mysqli->query("UPDATE menus SET name = '".$name."', description = '".$description."' WHERE id = '".$_GET['id']."'")) {
 				header('http/1.1 204 No Content');
 			} else {
 				header('http/1.1 500 Internal Server Error');	
@@ -87,6 +82,8 @@
 						header('http/1.1 400 Bad Request');
 					break;
 				}
+			} else {
+				header('http/1.1 404 Not Found');
 			}
 		break;
 		
@@ -105,14 +102,16 @@
 		case 'DELETE':
 			//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
 			
-			parse_str(file_get_contents("php://input"), $putData);
+			/*$deleteData = file_get_contents("php://input");
 			
-			$id = $mysqli->real_escape_string($putData['id']);
+			$deleteXML = new SimpleXMLElement($deleteData);
 			
-			if($mysqli->query("DELETE FROM menus WHERE id = '".$id."'")) {
+			$id = $mysqli->real_escape_string($deleteXML->attributes()->id);*/
+			
+			if($mysqli->query("DELETE FROM menus WHERE id = '".$_GET['id']."'")) {
 		
 				// Delete the dishes that belongs to the menu
-				if($mysqli->query("DELETE FROM dishes WHERE menu_id = '".$id."'")) {
+				if($mysqli->query("DELETE FROM dishes WHERE menu_id = '".$_GET['id']."'")) {
 					header('http/1.1 200 OK'); // succeed
 				} else {
 					header('http/1.1 500 Internal Server Error'); // Failed
