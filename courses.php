@@ -17,21 +17,21 @@
 		break;
 
 		case 'GET':
-			$result = $mysqli->query("SELECT * FROM categories ORDER BY category");
+			$result = $mysqli->query("SELECT * FROM courses ORDER BY course");
 
 			while($r = $result->fetch_assoc()) {
-				$categories['categories'][] = array(
+				$courses['courses'][] = array(
 					'id' 		=> $r['id'], 
-					'category'	=> $r['category']
+					'course'	=> $r['course']
 				);
 			}
-
+														
 			// Check for data type in the URI.
 			switch($_GET['format']) {
 				case 'json':
 					header('Content-Type: text/json');
 					
-					echo json_encode($categories);
+					echo json_encode($courses);
 				break;
 				case 'xml':
 					header('Content-Type: text/xml');
@@ -39,9 +39,9 @@
 					$xml = new SimpleXMLElement('<categories/>');
 
 					foreach($categories['categories'] as $cat) {
-						$xmlDish = $xml->addChild('category');
+						$xmlDish = $xml->addChild('course');
 						$xmlDish->addAttribute('id', $cat['id']);
-						$xmlDish->addChild('category', $cat['category']);
+						$xmlDish->addChild('course', $cat['course']);
 					}
 					
 					echo $xml->asXML();

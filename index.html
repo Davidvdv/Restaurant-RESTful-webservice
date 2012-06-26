@@ -48,80 +48,7 @@
 			</section>
 			<section class="row">
 				<article class="span6">
-					<h2>Documentatie &amp; URI&#39;s</h2>
-	
-					<p>De representatie van de data door middel van een GET-request is in JSON-formaat en XML.</p>
-										
-					<h4>Geef alle menu's</h4>
-					<pre>GET api/v1/menus.json</pre>
-					<pre>GET api/v1/menus.xml</pre>
-					
-					<hr />
-					
-					<h4>Maak een nieuw menu</h4>
-					<pre>POST api/v1/menus</pre>
-					
-					<hr />
-					
-					<h4>Bewerk een menu</h4>
-					<pre>PUT api/v1/menus/{:id}</pre>
-					<span class="label label-info">XML-representatie meesturen</span>
-					<pre class="alert alert-info">&lt;menu id=&quot;{:id}&quot;&gt;&lt;name&gt;{Naam voor het menu}&lt;/name&gt;&lt;description&gt;{Een uitgebreide beschrijving van het menu}&lt;/description&gt;&lt;/menu&gt;</pre>
-					
-					<hr />
-					
-					<h4>Verwijder een nieuw menu (dit verwijdert ook alle bijbehorende gerechten)</h4>
-					<pre>DELETE api/v1/menus/{:id}</pre>
-					
-					<hr />
-					
-					<h4>Voeg een gerecht toe aan een menu</h4>
-					<pre>POST api/v1/menus/{:id}/dishes/</pre>
-					
-					<hr />
-					
-					<h4>Geef alle gerechten van een menu</h4>
-					<pre>GET api/v1/menus/{:id}/dishes.json</pre>
-					<pre>GET api/v1/menus/{:id}/dishes.xml</pre>
-					
-					<hr />
-					
-					<h4>Bewerk een gerecht</h4>
-					<pre>PUT api/v1/dishes/{:id}</pre>
-					<span class="label label-info">XML-representatie meesturen</span>
-					<pre class="alert alert-info">&lt;dish&gt;
-	&lt;name&gt;{Naam van het gerecht}&lt;/name&gt;
-	&lt;price&gt;{prijs}&lt;/price&gt;
-	&lt;course id=&quot;{:course_id}&quot; /&gt;
-	&lt;category id=&quot;{:category_id}&quot; /&gt;
-&lt;/dish&gt;</pre>
-					<hr />
-					
-					<h4>Verwijder een gerecht</h4>
-					<pre>DELETE api/v1/dishes/{:id}</pre>
-					
-					<hr />
-					
-					<hr />
-					
-					<h4>Geef alle gerechten</h4>
-					<pre>GET api/v1/dishes.json</pre>
-					<pre>GET api/v1/dishes.xml</pre>
-					
-					<hr />
-					
-					<h4>Geef alle categorieën</h4>
-					<pre>GET api/v1/categories.json</pre>
-					<pre>GET api/v1/categories.xml</pre>
-					
-					<hr />
-					
-					<h4>Geef alle gerechten op categorie (bijvoorbeeld soep, gebak, salade enz.)</h4>
-					<pre>GET api/v1/dishes.json?category={:category}</pre>
-					<pre>GET api/v1/dishes.xml?category={:category}</pre>
-				</article>
-				<article class="span6">
-					<h2>Data &amp; resources</h2>
+					<h2>Data</h2>
 					<p>De webservice bevat de volgende entiteiten:</p>
 					
 					<ul>
@@ -131,8 +58,10 @@
 						<li>Gerechten</li>
 					</ul>
 					
-					<blockquote>Een menu heeft gangen. Een gang bestaat uit een of meerdere gerechten. Gerechten horen bij verschillende categori&euml;n (bijvoorbeeld soepen, pasta, vegetarisch of salade).</blockquote>
-										
+					<blockquote>Een menu heeft gangen. Een gang bestaat uit een of meerdere gerechten. Gerechten horen bij verschillende categori&euml;n (bijvoorbeeld soepen, pasta, vegetarisch of salade).</blockquote>	
+				</article>
+				<article class="span6">
+					<h2>Resources</h2>
 					<div class="row">
 						<div class="span3">
 							<h3>Menu</h3>
@@ -167,7 +96,103 @@
 							</ul>
 						</div>
 					</div>
-						
+				</article>
+			</section>
+			<section class="row">
+				<article class="span12">
+					<h2>Documentatie &amp; URI&#39;s</h2>
+	
+					<p>De representatie van de data door middel van een GET-request is in JSON-formaat en XML.</p>
+					
+					<div class="row">
+						<div class="span6">
+							<h3>Gerechten</h3>
+					
+							<h4>Voeg een gerecht toe aan een menu</h4>
+							<pre>POST api/v1/menus/{:id}/dishes/</pre>
+					
+							<hr />
+					
+							<h4>Geef alle gerechten van een menu</h4>
+							<pre>GET api/v1/menus/{:id}/dishes.json</pre>
+							<pre>GET api/v1/menus/{:id}/dishes.xml</pre>
+					
+							<hr />
+					
+							<h4>Bewerk een gerecht</h4>
+							<pre>PUT api/v1/dishes/{:id}</pre>
+							<span class="label label-info">XML-representatie meesturen</span>
+							<pre class="alert alert-info">&lt;dish&gt;
+	&lt;name&gt;{Naam van het gerecht}&lt;/name&gt;
+	&lt;price&gt;{prijs}&lt;/price&gt;
+	&lt;course id=&quot;{:course_id}&quot; /&gt;
+	&lt;category id=&quot;{:category_id}&quot; /&gt;
+&lt;/dish&gt;</pre>
+							<hr />
+					
+							<h4>Verwijder een gerecht</h4>
+							<pre>DELETE api/v1/dishes/{:id}</pre>
+					
+							<hr />
+					
+							<h4>Geef alle gerechten</h4>
+							<pre>GET api/v1/dishes.json</pre>
+							<pre>GET api/v1/dishes.xml</pre>
+							
+							<hr />
+					
+							<h4>Geef alle gerechten op categorie (bijvoorbeeld soep, gebak, salade enz.)</h4>
+							<pre>GET api/v1/dishes.json?category={:category}</pre>
+							<pre>GET api/v1/dishes.xml?category={:category}</pre>
+							
+							<hr />
+					
+							<h4>Geef alle gerechten op gang (bijvoorbeeld soep, gebak, salade enz.)</h4>
+							<pre>GET api/v1/dishes.json?course={:course}</pre>
+							<pre>GET api/v1/dishes.xml?course={:course}</pre>
+						</div>
+						<div class="span6">
+							<h3>Menu&#39;s</h3>
+					
+							<h4>Geef alle menu's</h4>
+							<pre>GET api/v1/menus.json</pre>
+							<pre>GET api/v1/menus.xml</pre>
+					
+							<hr />
+
+							<h4>Maak een nieuw menu</h4>
+							<pre>POST api/v1/menus</pre>
+					
+							<hr />
+					
+							<h4>Bewerk een menu</h4>
+							<pre>PUT api/v1/menus/{:id}</pre>
+							<span class="label label-info">XML-representatie meesturen</span>
+							<pre class="alert alert-info">&lt;menu&gt;
+	&lt;name&gt;{Naam voor het menu}&lt;/name&gt;
+	&lt;description&gt;{Een uitgebreide beschrijving van het menu}&gt;&lt;/description&gt;
+&lt;/menu&gt;</pre>
+					
+							<hr />
+					
+							<h4>Verwijder een nieuw menu (dit verwijdert ook alle bijbehorende gerechten)</h4>
+							<pre>DELETE api/v1/menus/{:id}</pre>
+						</div>
+						<div class="span6">
+							<h3>Categorie&euml;n</h3>
+
+							<h4>Geef alle categorieën</h4>
+							<pre>GET api/v1/categories.json</pre>
+							<pre>GET api/v1/categories.xml</pre>
+						</div>
+						<div class="span6">
+							<h3>Gangen</h3>
+
+							<h4>Geef alle gangen</h4>
+							<pre>GET api/v1/courses.json</pre>
+							<pre>GET api/v1/courses.xml</pre>
+						</div>
+					</div>
 				</article>
 			</section>
 			<hr />

@@ -106,17 +106,66 @@
 						break;
 					}
 				}
-				elseif(isset($_GET['cat'])) {
+				elseif(isset($_GET['category'])) {
 				
 					// Get dishes of a category
-				
-					$category = $_GET['cat'];
+
+					$category = $_GET['category'];
 				
 					$result = $mysqli->query("SELECT dishes.id, dishes.name, dishes.price, courses.course, categories.category 
 						FROM dishes
 						INNER JOIN dishes_menus AS dm ON dm.dish_id = dishes.id
 						INNER JOIN courses ON courses.id = dishes.course_id 
 						INNER JOIN categories ON categories.id = dishes.category_id WHERE categories.category = '".$category."'");
+					
+					$dishes = '';
+					
+					while($dish = $result->fetch_assoc()) {
+						$dishes['dishes'][] = array(
+							'id' 		=> $dish['id'], 
+							'name' 		=> $dish['name'], 
+							'price' 	=> $dish['price'], 
+							'course' 	=> $dish['course'],
+							'category'	=> $dish['category']
+						);
+					}
+				
+					// Check for data type in the URI.
+					switch($_GET['format']) {
+						case 'json':
+							header('Content-Type: text/json');
+
+							echo json_encode($dishes);
+						break;
+						case 'xml':
+							header('Content-Type: text/xml');
+
+							$xml = new SimpleXMLElement('<dishes/>');
+
+							foreach($dishes['dishes'] as $dish) {
+								$xmlDish = $xml->addChild('dish');
+								$xmlDish->addAttribute('id', $dish['id']);
+								$xmlDish->addChild('name', $dish['name']);
+								$xmlDish->addChild('price', $dish['price']);
+								$xmlDish->addChild('course', $dish['course']);
+								$xmlDish->addChild('category', $dish['category']);
+							}
+
+							echo $xml->asXML();
+						break;
+					}
+				}
+				elseif(isset($_GET['course'])) {
+				
+					// Get dishes of a category
+
+					$course = $_GET['course'];
+				
+					$result = $mysqli->query("SELECT dishes.id, dishes.name, dishes.price, courses.course, categories.category 
+						FROM dishes
+						INNER JOIN dishes_menus AS dm ON dm.dish_id = dishes.id
+						INNER JOIN courses ON courses.id = dishes.course_id 
+						INNER JOIN categories ON categories.id = dishes.category_id WHERE courses.course = '".$course."'");
 					
 					$dishes = '';
 					

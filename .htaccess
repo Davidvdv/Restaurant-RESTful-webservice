@@ -6,11 +6,11 @@ RewriteRule ^api/v1/dishes/([0-9]+)$					dishes.php?id=$2
 # Get dishes of a menu
 RewriteRule ^api/v1/menus/([0-9]+)/dishes.(json|xml)$	dishes.php?menuid=$1&format=$2
 
-# Get all dishes
-RewriteRule ^api/v1/dishes.(json|xml)$					dishes.php?format=$1
-
 # Get all dishes by category (QSA copies a part of a string and append it to the URI)
 RewriteRule ^api/v1/dishes.(json|xml)$					dishes.php?format=$1 [QSA]
+
+# Get all dishes
+RewriteRule ^api/v1/dishes.(json|xml)$					dishes.php?format=$1
 
 # Get all menus
 RewriteRule ^api/v1/menus.(json|xml)$					menus.php?format=$1
@@ -25,3 +25,6 @@ RewriteRule ^api/v1/categories.(json|xml)$				categories.php?format=$1
 # Add a menu
 RewriteRule ^api/v1/menus/$								menus.php
 RewriteRule ^api/v1/menus$								menus.php
+
+# Get all courses
+RewriteRule ^api/v1/courses.(json|xml)$					courses.php?format=$1
