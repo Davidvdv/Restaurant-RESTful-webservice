@@ -1,6 +1,7 @@
 <?php
-		
-	$mysqli = new mysqli('localhost', 'root', 'root', 'STR6');
+	require_once('config.php');
+	
+	$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DB);
 	
 	// Save request method in $requestMethod.
 	$requestMethod = $_SERVER['REQUEST_METHOD'];	
@@ -38,10 +39,10 @@
 					
 					$xml = new SimpleXMLElement('<categories/>');
 
-					foreach($categories['categories'] as $cat) {
+					foreach($courses['courses'] as $course) {
 						$xmlDish = $xml->addChild('course');
-						$xmlDish->addAttribute('id', $cat['id']);
-						$xmlDish->addChild('course', $cat['course']);
+						$xmlDish->addAttribute('id', $course['id']);
+						$xmlDish->addChild('course', $course['course']);
 					}
 					
 					echo $xml->asXML();

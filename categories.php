@@ -1,6 +1,7 @@
 <?php
-		
-	$mysqli = new mysqli('localhost', 'root', 'root', 'STR6');
+	require_once('config.php');
+
+	$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DB);
 	
 	// Save request method in $requestMethod.
 	$requestMethod = $_SERVER['REQUEST_METHOD'];	

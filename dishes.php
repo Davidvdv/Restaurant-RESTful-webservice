@@ -1,7 +1,7 @@
 <?php
-		
-	$mysqli = new mysqli('localhost', 'root', 'root', 'STR6');
-	$baseURL = 'http://'.$_SERVER['HTTP_HOST'].'/api/v1/';
+	require_once('config.php');
+	
+	$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DB);
 	
 	// Save request method in $requestMethod.
 	$requestMethod = $_SERVER['REQUEST_METHOD'];	
@@ -79,7 +79,7 @@
 						case 'json':
 							header('Content-Type: text/json');
 
-							$resultsArray['menu']['resource'] = $baseURL.'menus/'.$menuId.'.json';
+							$resultsArray['menu']['resource'] = BASE_URL.'menus/'.$menuId.'.json';
 
 							echo json_encode($resultsArray);
 						break;
@@ -89,17 +89,19 @@
 							$xml = new SimpleXMLElement('<menu/>');
 							$xml->addAttribute('id', $resultsArray['menu']['id']);
 							$xml->addChild('name', $resultsArray['menu']['name']);
-							$xml->addChild('resource', $baseURL.'menus/'.$_GET['menuid'].'.xml');
+							$xml->addChild('resource', BASE_URL.'menus/'.$_GET['menuid'].'.xml');
 
 							$xmlDishes = $xml->addChild('dishes');
-
-							foreach($resultsArray['menu']['dishes'] as $dish) {
-								$xmlDish = $xmlDishes->addChild('dish');
-								$xmlDish->addAttribute('id', $dish['id']);
-								$xmlDish->addChild('name', $dish['name']);
-								$xmlDish->addChild('price', $dish['price']);
-								$xmlDish->addChild('course', $dish['course']);
-								$xmlDish->addChild('category', $dish['category']);
+							
+							if(is_array($resultsArray['menu']['dishes'])) {
+								foreach($resultsArray['menu']['dishes'] as $dish) {
+									$xmlDish = $xmlDishes->addChild('dish');
+									$xmlDish->addAttribute('id', $dish['id']);
+									$xmlDish->addChild('name', $dish['name']);
+									$xmlDish->addChild('price', $dish['price']);
+									$xmlDish->addChild('course', $dish['course']);
+									$xmlDish->addChild('category', $dish['category']);
+								}
 							}
 
 							echo $xml->asXML();
@@ -141,14 +143,16 @@
 							header('Content-Type: text/xml');
 
 							$xml = new SimpleXMLElement('<dishes/>');
-
-							foreach($dishes['dishes'] as $dish) {
-								$xmlDish = $xml->addChild('dish');
-								$xmlDish->addAttribute('id', $dish['id']);
-								$xmlDish->addChild('name', $dish['name']);
-								$xmlDish->addChild('price', $dish['price']);
-								$xmlDish->addChild('course', $dish['course']);
-								$xmlDish->addChild('category', $dish['category']);
+							
+							if(is_array($dishes)) {
+								foreach($dishes['dishes'] as $dish) {
+									$xmlDish = $xml->addChild('dish');
+									$xmlDish->addAttribute('id', $dish['id']);
+									$xmlDish->addChild('name', $dish['name']);
+									$xmlDish->addChild('price', $dish['price']);
+									$xmlDish->addChild('course', $dish['course']);
+									$xmlDish->addChild('category', $dish['category']);
+								}
 							}
 
 							echo $xml->asXML();
@@ -190,14 +194,16 @@
 							header('Content-Type: text/xml');
 
 							$xml = new SimpleXMLElement('<dishes/>');
-
-							foreach($dishes['dishes'] as $dish) {
-								$xmlDish = $xml->addChild('dish');
-								$xmlDish->addAttribute('id', $dish['id']);
-								$xmlDish->addChild('name', $dish['name']);
-								$xmlDish->addChild('price', $dish['price']);
-								$xmlDish->addChild('course', $dish['course']);
-								$xmlDish->addChild('category', $dish['category']);
+							
+							if(is_array($dishes)) {
+								foreach($dishes['dishes'] as $dish) {
+									$xmlDish = $xml->addChild('dish');
+									$xmlDish->addAttribute('id', $dish['id']);
+									$xmlDish->addChild('name', $dish['name']);
+									$xmlDish->addChild('price', $dish['price']);
+									$xmlDish->addChild('course', $dish['course']);
+									$xmlDish->addChild('category', $dish['category']);
+								}
 							}
 
 							echo $xml->asXML();
@@ -234,14 +240,16 @@
 							header('Content-Type: text/xml');
 
 							$xml = new SimpleXMLElement('<dishes/>');
-
-							foreach($dishes['dishes'] as $dish) {
-								$xmlDish = $xml->addChild('dish');
-								$xmlDish->addAttribute('id', $dish['id']);
-								$xmlDish->addChild('name', $dish['name']);
-								$xmlDish->addChild('price', $dish['price']);
-								$xmlDish->addChild('course', $dish['course']);
-								$xmlDish->addChild('category', $dish['category']);
+							
+							if(is_array($dishes)) {
+								foreach($dishes['dishes'] as $dish) {
+									$xmlDish = $xml->addChild('dish');
+									$xmlDish->addAttribute('id', $dish['id']);
+									$xmlDish->addChild('name', $dish['name']);
+									$xmlDish->addChild('price', $dish['price']);
+									$xmlDish->addChild('course', $dish['course']);
+									$xmlDish->addChild('category', $dish['category']);
+								}
 							}
 
 							echo $xml->asXML();

@@ -1,6 +1,7 @@
 <?php
-		
-	$mysqli = new mysqli('localhost', 'root', 'root', 'STR6');
+	require_once('config.php');
+	
+	$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DB);
 	
 	// Save request method in $requestMethod.
 	$requestMethod = $_SERVER['REQUEST_METHOD'];
@@ -69,13 +70,15 @@
 						header('Content-Type: text/xml');
 					
 						$xml = new SimpleXMLElement('<menus/>');
-						foreach($resultsArray as $menu) {
-							$xmlMenu = $xml->addChild('menu');
-							$xmlMenu->addAttribute('id', $menu['id']);
-							$xmlMenu->addChild('name', $menu['name']);
-							$xmlMenu->addChild('description', $menu['description']);
+						if(is_array($resultsArray)) {
+							foreach($resultsArray as $menu) {
+								$xmlMenu = $xml->addChild('menu');
+								$xmlMenu->addAttribute('id', $menu['id']);
+								$xmlMenu->addChild('name', $menu['name']);
+								$xmlMenu->addChild('description', $menu['description']);
+							}
 						}
-					
+						
 						echo $xml->asXML();
 					break;
 					default:

@@ -13,20 +13,6 @@
 				
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
-		
-		<script>
-			$(document).ready(function() {
-				console.log("Alle menu's");
-				$.getJSON('api/v1/menus.json', function(menus){
-					console.log(menus);
-				});
-				
-				console.log("Alle gerechten van een menu");
-				$.getJSON('api/v1/menus/1/dishes.json', function(dishes){
-					console.log(dishes);
-				});
-			});
-		</script>
 	</head>
 	<body>
 		<div class="navbar navbar-fixed-top">
@@ -42,7 +28,7 @@
 					<div class="well">
 					<h1>RESTful webservice voor een restaurant</h1>
 					<p>Deze webservice geeft de mogelijkheid om informatie op te vragen over de kaart van een restaurant. Klanten kunnen bijvoorbeeld de menukaart opvragen met de gangen en bijhorende gerechten die erop staan. Een chefkok kan zijn gerechten en menukaart beheren.</p>
-					<p>Bekijk op <a href="https://github.com/Davidvdv/Restaurant-RESTful-webservice">github.com/Davidvdv/Restaurant-RESTful-webservice</a></p>
+					<p>Bekijk dit op <a href="https://github.com/Davidvdv/Restaurant-RESTful-webservice">github.com/Davidvdv/Restaurant-RESTful-webservice</a>.</p>
 					</div>
 				</div>
 			</section>
@@ -122,7 +108,7 @@
 							<h4>Bewerk een gerecht</h4>
 							<pre>PUT api/v1/dishes/{:id}</pre>
 							<span class="label label-info">XML-representatie meesturen</span>
-							<pre class="alert alert-info">&lt;dish&gt;
+							<pre class="alert alert-info">&lt;dish id=&quot;{:id}&quot;&gt;
 	&lt;name&gt;{Naam van het gerecht}&lt;/name&gt;
 	&lt;price&gt;{prijs}&lt;/price&gt;
 	&lt;course id=&quot;{:course_id}&quot; /&gt;
@@ -168,7 +154,7 @@
 							<h4>Bewerk een menu</h4>
 							<pre>PUT api/v1/menus/{:id}</pre>
 							<span class="label label-info">XML-representatie meesturen</span>
-							<pre class="alert alert-info">&lt;menu&gt;
+							<pre class="alert alert-info">&lt;menu id=&quot;{:id}&quot;&gt;
 	&lt;name&gt;{Naam voor het menu}&lt;/name&gt;
 	&lt;description&gt;{Een uitgebreide beschrijving van het menu}&gt;&lt;/description&gt;
 &lt;/menu&gt;</pre>
