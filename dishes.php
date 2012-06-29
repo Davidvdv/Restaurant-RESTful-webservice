@@ -17,24 +17,52 @@
 			header('Allow: GET, POST, PUT, DELETE, HEAD, OPTIONS');
 		break;
 		
+		case 'DELETE':
+			if(isset($_GET['id']) && ctype_digit($_GET['id'])) {
+				if($mysqli->query("DELETE FROM dishes WHERE id = '".$_GET['id']."'")) {
+					$mysqli->query("DELETE FROM dishes_menus WHERE dish_id = '".$_GET['id']."'");
+					header('http/1.1 200 OK'); // succeed
+				} else {
+					header('http/1.1 500 Internal Server Error'); // Failed
+				}
+			}
+		break;
+		
 		case 'PUT':
 							
 			$putData = file_get_contents("php://input");
 			$putXML = new SimpleXMLElement($putData);
 
-			$menuid = 	$mysqli->real_escape_string((string)$putXML->attributes()->id);
-			$id = 		$mysqli->real_escape_string((string)$putXML->dish->attributes()->id);
-			$name = 	$mysqli->real_escape_string($putXML->dish->price);
-			$category = $mysqli->real_escape_string($putXML->dish->course->attributes()->courseid);
+			$id = 		$mysqli->real_escape_string($_GET['id']);
+			$name = 	$mysqli->real_escape_string((string)$putXML->name);
+			$price = 	$mysqli->real_escape_string((string)$putXML->price);
+			$category = $mysqli->real_escape_string((string)$putXML->category->attributes()->id);
+			$course = 	$mysqli->real_escape_string((string)$putXML->course->attributes()->id);
 
-			if($mysqli->query("UPDATE menus 
-				SET name = '".$name."', price = '".$price."', 'category = '".$category."', course = '".$course."' 
-				WHERE id = '".$id."'")) {
+			if($mysqli->query("UPDATE dishes SET name = '".$name."', price = '".$price."', course_id = '".$course."', category_id = '".$category."' WHERE id = '".$id."'")) {
 				header('http/1.1 204 No Content');
 			} else {
 				header('http/1.1 500 Internal Server Error');
 			}
-			
+
+		break;
+		
+		case 'POST':
+		
+			$name = $mysqli->real_escape_string($_POST['name']);
+			$price = $mysqli->real_escape_string($_POST['price']);
+			$category = $mysqli->real_escape_string($_POST['category']);
+			$course = $mysqli->real_escape_string($_POST['course']);
+
+			if(isset($_GET['menuid']) && ctype_digit($_GET['menuid'])) {
+				if($mysqli->query("INSERT INTO dishes (name, price, course_id, category_id) VALUES ('".$name."', '".$price."', '".$course."', '".$category."')")) {
+					$mysqli->query("INSERT INTO dishes_menus VALUES ('".$mysqli->insert_id."', '".$_GET['menuid']."')");
+					header('http/1.1 201 Created'); // succeed
+				} else {
+					header('http/1.1 500 Internal Server Error'); // Failed
+				}
+			}
+		
 		break;
 			
 		case 'GET':
@@ -260,6 +288,9 @@
 				header('http/1.1 404 Not Found');
 			}
 		
+		break;
+		default:
+			header('http/1.1 405 Method Not Allowed');
 		break;
 		
 		$mysqli->close();

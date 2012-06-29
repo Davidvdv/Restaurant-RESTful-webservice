@@ -91,7 +91,7 @@
 		break;
 		
 		case 'POST':
-			
+						
 			$postName = $mysqli->real_escape_string($_POST['name']);
 			$postDescription = $mysqli->real_escape_string($_POST['description']);
 		
@@ -113,12 +113,7 @@
 			
 			if($mysqli->query("DELETE FROM menus WHERE id = '".$_GET['id']."'")) {
 		
-				// Delete the dishes that belongs to the menu
-				if($mysqli->query("DELETE FROM dishes WHERE menu_id = '".$_GET['id']."'")) {
-					header('http/1.1 200 OK'); // succeed
-				} else {
-					header('http/1.1 500 Internal Server Error'); // Failed
-				}
+				header('http/1.1 200 OK'); // succeed
 		
 			} else {
 				header('http/1.1 500 Internal Server Error'); // Failed

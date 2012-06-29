@@ -89,14 +89,21 @@
 					<h2>Documentatie &amp; URI&#39;s</h2>
 	
 					<p>De representatie van de data door middel van een GET-request is in JSON-formaat en XML.</p>
-					
+					<p>TIP: in menu 1 zitten op dit moment gerechten.<p>
+						
 					<div class="row">
 						<div class="span6">
 							<h3>Gerechten</h3>
 					
 							<h4>Voeg een gerecht toe aan een menu</h4>
 							<pre>POST api/v1/menus/{:id}/dishes/</pre>
-					
+							<span class="label label-info">Benodigde POST-gegevens</span>
+							<pre class="alert alert-info">Array (
+	[name] 		=> "Naam van het gerecht",
+	[price] 	=> "De prijs van het gerecht",
+	[course] 	=> "De gang (id)",
+	[category]	=> "De categorie (id)"
+)</pre>
 							<hr />
 					
 							<h4>Geef alle gerechten van een menu</h4>
@@ -148,7 +155,11 @@
 
 							<h4>Maak een nieuw menu</h4>
 							<pre>POST api/v1/menus</pre>
-					
+							<span class="label label-info">Benodigde POST-gegevens</span>
+							<pre class="alert alert-info">Array (
+	[name] 		=> "Naam van het menu",
+	[description] 	=> "Beschrijving van het menu voor op de kaart"
+)</pre>
 							<hr />
 					
 							<h4>Bewerk een menu</h4>
@@ -161,7 +172,7 @@
 					
 							<hr />
 					
-							<h4>Verwijder een nieuw menu (dit verwijdert ook alle bijbehorende gerechten)</h4>
+							<h4>Verwijder een menu</h4>
 							<pre>DELETE api/v1/menus/{:id}</pre>
 						</div>
 						<div class="span6">
@@ -179,6 +190,107 @@
 							<pre>GET api/v1/courses.xml</pre>
 						</div>
 					</div>
+				</article>
+			</section>
+			<hr />
+			<section class="row">
+				<article class="span12">
+					<h2>Representaties</h2>
+					<p>Hieronder een voorbeeld van een represenatie van een menu met gerechten</p>
+					<h4>JSON-representatie</h4>
+					<pre>{
+	&quot;menu&quot;: {
+	      &quot;id&quot;: &quot;1&quot;,
+	      &quot;name&quot;: &quot;Hetvrolijkezomermenu&quot;,
+	      &quot;resource&quot;: &quot;http: //student.cmi.hro.nl/api/v1/menus/1.json&quot;
+	      &quot;dishes&quot;: [
+	          {
+	              &quot;id&quot;: &quot;4&quot;,
+	              &quot;name&quot;: &quot;Carpaccio van ossenhaas met rucola en Manchegokaas&quot;,
+	              &quot;price&quot;: &quot;15&quot;,
+	              &quot;course&quot;: &quot;Voorgerecht&quot;,
+	              &quot;category&quot;: &quot;Koud&quot;
+	          },
+	          {
+	              &quot;id&quot;: &quot;5&quot;,
+	              &quot;name&quot;: &quot;VitelloTonato: gemarineerd frianderkalfsvlees met tonijnsaus en kappertjes&quot;,
+	              &quot;price&quot;: &quot;9,75&quot;,
+	              &quot;course&quot;: &quot;Voorgerecht&quot;,
+	              &quot;category&quot;: &quot;Overig&quot;
+	          },
+	          {
+	              &quot;id&quot;: &quot;6&quot;,
+	              &quot;name&quot;: &quot;Frisse salade met huisgerookte eendenborstfilet en frambozendressing&quot;,
+	              &quot;price&quot;: &quot;10,50&quot;,
+	              &quot;course&quot;: &quot;Voorgerecht&quot;,
+	              &quot;category&quot;: &quot;Salade&quot;
+	          },
+	          {
+	              &quot;id&quot;: &quot;7&quot;,
+	              &quot;name&quot;: &quot;Geitenkaas in wikkel van Zeeuws spek op frisse salade met honingdressing&quot;,
+	              &quot;price&quot;: &quot;10,50&quot;,
+	              &quot;course&quot;: &quot;Voorgerecht&quot;,
+	              &quot;category&quot;: &quot;Salade&quot;
+	          },
+	          {
+	              &quot;id&quot;: &quot;9&quot;,
+	              &quot;name&quot;: &quot;Huisgemaakte garnalenbisque met rivierkreeftstaartjes&quot;,
+	              &quot;price&quot;: &quot;6,00&quot;,
+	              &quot;course&quot;: &quot;Voorgerecht&quot;,
+	              &quot;category&quot;: &quot;Soepen&quot;
+	          },
+	          {
+	              &quot;id&quot;: &quot;10&quot;,
+	              &quot;name&quot;: &quot;Lichtromige jonge bladspinaziesoep geserveerd met gamba&quot;,
+	              &quot;price&quot;: &quot;5,00&quot;,
+	              &quot;course&quot;: &quot;Voorgerecht&quot;,
+	              &quot;category&quot;: &quot;Soepen&quot;
+	          }
+	      ]
+	  }
+}</pre>
+					<h4>XML-representatie</h4>
+					<pre>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;menu id=&quot;1&quot;&gt;
+	&lt;name&gt;Het vrolijke zomermenu&lt;/name&gt;
+	&lt;resource&gt;http://student.cmi.hro.nl/api/v1/menus/1.xml&lt;/resource&gt;
+	&lt;dishes&gt;
+		&lt;dish id=&quot;4&quot;&gt;
+			&lt;name&gt;Carpaccio van ossenhaas met rucola en Manchegokaas&lt;/name&gt;
+			&lt;price&gt;15&lt;/price&gt;
+			&lt;course&gt;Voorgerecht&lt;/course&gt;
+			&lt;category&gt;Koud&lt;/category&gt;
+		&lt;/dish&gt;
+		&lt;dish id=&quot;5&quot;&gt;
+			&lt;name&gt;Vitello Tonato: gemarineerd frianderkalfsvlees met tonijnsaus en kappertjes&lt;/name&gt;
+			&lt;price&gt;9,75&lt;/price&gt;
+			&lt;course&gt;Voorgerecht&lt;/course&gt;
+			&lt;category&gt;Overig&lt;/category&gt;
+		&lt;/dish&gt;
+		&lt;dish id=&quot;6&quot;&gt;
+			&lt;name&gt;Frisse salade met huisgerookte eendenborstfilet en frambozendressing&lt;/name&gt;
+			&lt;price&gt;10,50&lt;/price&gt;
+			&lt;course&gt;Voorgerecht&lt;/course&gt;
+		&lt;category&gt;Salade&lt;/category&gt;
+		&lt;/dish&gt;&lt;dish id=&quot;7&quot;&gt;
+			&lt;name&gt;Geitenkaas in wikkel van Zeeuws spek op frisse salade met honingdressing&lt;/name&gt;
+			&lt;price&gt;10,50&lt;/price&gt;
+			&lt;course&gt;Voorgerecht&lt;/course&gt;
+			&lt;category&gt;Salade&lt;/category&gt;
+		&lt;/dish&gt;
+		&lt;dish id=&quot;9&quot;&gt;
+			&lt;name&gt;Huisgemaakte garnalenbisque met rivierkreeftstaartjes&lt;/name&gt;
+			&lt;price&gt;6,00&lt;/price&gt;
+			&lt;course&gt;Voorgerecht&lt;/course&gt;
+			&lt;category&gt;Soepen&lt;/category&gt;
+		&lt;/dish&gt;&lt;dish id=&quot;10&quot;&gt;
+			&lt;name&gt;Lichtromige jonge bladspinaziesoep geserveerd met gamba&lt;/name&gt;
+			&lt;price&gt;5,00&lt;/price&gt;
+			&lt;course&gt;Voorgerecht&lt;/course&gt;
+			&lt;category&gt;Soepen&lt;/category&gt;
+		&lt;/dish&gt;
+	&lt;/dishes&gt;
+&lt;/menu&gt;</pre>
 				</article>
 			</section>
 			<hr />

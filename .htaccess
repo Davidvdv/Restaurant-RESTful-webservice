@@ -1,10 +1,13 @@
 RewriteEngine On
 
-# Delete or put a dish to a menu
-RewriteRule ^api/v1/dishes/([0-9]+)$					dishes.php?id=$2
-
 # Get dishes of a menu
 RewriteRule ^api/v1/menus/([0-9]+)/dishes.(json|xml)$	dishes.php?menuid=$1&format=$2
+
+# Post a dish to a menu
+RewriteRule ^api/v1/menus/([0-9]+)/dishes$				dishes.php?menuid=$1
+
+# Delete or put a dish
+RewriteRule ^api/v1/dishes/([0-9]+)$					dishes.php?id=$1
 
 # Get all dishes by category (QSA copies a part of a string and append it to the URI)
 RewriteRule ^api/v1/dishes.(json|xml)$					dishes.php?format=$1 [QSA]
